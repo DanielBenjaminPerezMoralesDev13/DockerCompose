@@ -1,0 +1,19 @@
+# Autor: Daniel Benjamin Perez Morales
+# GitHub: https://github.com/DanielBenjaminPerezMoralesDev13
+# Correo electrónico: danielperezdev@proton.me
+
+# Usa la imagen oficial de Python como base
+FROM python:alpine
+
+RUN apk --no-cache add curl && apk add --no-cache tini
+# Define el puerto en el que escucha el servidor
+EXPOSE 80
+
+# HealthCheck para verificar que el servidor responde a peticiones HTTP en el puerto 80
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 --start-period=30s \
+    CMD curl --silent --fail http://localhost/ || exit 1
+
+ENTRYPOINT [ "tini", "--" ]
+
+CMD sh
+

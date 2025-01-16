@@ -1,0 +1,28 @@
+https://youtu.be/SXwC9fSwct8?t=1414
+
+https://ubuntu.com/tutorials/install-and-configure-apache
+https://ioflood.com/blog/install-systemctl-command-linux/
+https://www.digitalocean.com/community/tutorials/how-to-configure-the-apache-web-server-on-an-ubuntu-or-debian-vps
+root@ce83460b7791:/etc/apache2/sites-available# service apache2 reload || service apache2 restart
+Reloading Apache httpd web server: apache2.
+
+
+root@ce83460b7791:/etc/apache2/sites-available# apachectl configtest
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' directive globally to suppress this message
+Syntax OK
+
+apt install systemd.
+apt install apache2
+
+host
+
+sudo nano /etc/hosts
+172.17.0.2 gci.example.com
+http://gci.example.com
+
+
+---
+
+para base de datos 
+
+https://stackoverflow.com/questions/21795340/linux-install-redis-cli-only
