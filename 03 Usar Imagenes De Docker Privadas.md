@@ -92,9 +92,9 @@ WARNING: experimental flag squash is removed with BuildKit. You should squash in
 - **Resumen:**
 - *Este comando crea una imagen Docker utilizando un fichero `Dockerfile` específico, sin usar la caché de Docker, configurando límites de recursos (memoria), y utilizando la red predeterminada. También está etiquetando la imagen con información sobre el mantenedor y buscando las últimas versiones de las imágenes base. Además, la opción `--squash` genera una advertencia debido a que está descontinuada con el motor BuildKit de Docker, sugiriendo que debes usar **Dockerfiles multi-etapas** para realizar la optimización de la imagen.*
 
-si tenemos las credenciales configuradas
+### **1. Login en Docker (docker login)**
 
-docker login
+**El comando `docker login` te permite autenticarte con Docker Hub (o cualquier otro registro de imágenes Docker). Al ejecutar este comando, se te solicita que ingreses tus credenciales de usuario de Docker (usuario y contraseña). Esto te permite realizar operaciones como subir (push) imágenes a un repositorio privado.**
 
 ```bash
 docker login
@@ -106,9 +106,22 @@ https://docs.docker.com/engine/reference/commandline/login/#credential-stores
 Login Succeeded
 ```
 
+- **`docker login`:** *Te autentica en Docker Hub.*
+- **`WARNING! Your password will be stored unencrypted...`:** *Esta advertencia te informa que la contraseña está almacenada sin cifrar en un archivo local (`config.json`). Docker recomienda usar un "credential helper" para proteger las credenciales.*
+- **`Login Succeeded`:** *Esto indica que la autenticación fue exitosa.*
+
+### **2. Subir una imagen a Docker Hub (docker push)**
+
+**El siguiente comando **`docker push`** sube una imagen local (en tu máquina) al repositorio de Docker Hub.**
+
 ```bash
 docker push d4nitrix13/my-app-private:latest
 ```
+
+- **`docker push d4nitrix13/my-app-private:latest`:** *Esto sube la imagen con el nombre `d4nitrix13/my-app-private` y la etiqueta `latest` a Docker Hub.*
+- *El mensaje que sigue muestra el progreso de la carga de la imagen, detallando las capas de la imagen que se están subiendo y aquellas que ya están montadas desde otras imágenes.*
+
+**El resultado incluye el "digest" y el tamaño total de la imagen subida:**
 
 ```bash
 docker push d4nitrix13/my-app-private:latest
@@ -124,102 +137,103 @@ a0904247e36a: Mounted from library/node
 latest: digest: sha256:1ade139fc90af76df2711ec672bb951ae275f86a061cc8b61dde48a6f92bce6b size: 1991
 ```
 
-cp docker-compose.yaml mongo-services-private.yaml
-editamos el ficheor mongo-servcies-private
+```bash
+latest: digest: sha256:1ade139fc90af76df2711ec672bb951ae275f86a061cc8b61dde48a6f92bce6f size: 1991
+```
 
-```yaml
+### **3. Crear y modificar archivos de configuración**
+
+#### **a. Copiar el archivo `docker-compose.yaml`**
+
+```bash
+cp docker-compose.yaml mongo-services-private.yaml
+```
+
+- **Este comando copia el archivo `docker-compose.yaml` a un nuevo archivo llamado `mongo-services-private.yaml`, para hacer modificaciones específicas sin alterar el archivo original.**
+
+#### **b. Crear archivos de variables de entorno**
+
+```bash
+touch app.env mongo-express.env
+```
+
+- **Este comando crea dos archivos de variables de entorno: `app.env` y `mongo-express.env`, donde puedes configurar las variables necesarias para la aplicación y **mongo-express**.**
+
+#### **c. Modificar el archivo `app.env`**
+
+**El archivo `app.env` contiene las credenciales para MongoDB:**
+
+```env
 # Autor: Daniel Benjamin Perez Morales
 # GitHub: https://github.com/DanielBenjaminPerezMoralesDev13
 # Gitlab: https://gitlab.com/DanielBenjaminPerezMoralesDev13
 # Correo electrónico: danielperezdev@proton.me
 
-secrets:
-  MONGO_DB_USERNAME:
-    file: ./secrets/MONGO_DB_USERNAME.txt
-  MONGO_DB_PWD:
-    file: ./secrets/MONGO_DB_PWD.txt
-  MONGO_INITDB_ROOT_USERNAME:
-    file: ./secrets/MONGO_INITDB_ROOT_USERNAME.txt
-  MONGO_INITDB_ROOT_PASSWORD:
-    file: ./secrets/MONGO_INITDB_ROOT_PASSWORD.txt
-  ME_CONFIG_MONGODB_ADMINUSERNAME:
-    file: ./secrets/ME_CONFIG_MONGODB_ADMINUSERNAME.txt
-  ME_CONFIG_MONGODB_ADMINPASSWORD:
-    file: ./secrets/ME_CONFIG_MONGODB_ADMINPASSWORD.txt
-  ME_CONFIG_MONGODB_SERVER:
-    file: ./secrets/ME_CONFIG_MONGODB_SERVER.txt
-  ME_CONFIG_MONGODB_URL:
-    file: ./secrets/ME_CONFIG_MONGODB_URL.txt
-  ME_CONFIG_MONGODB_AUTH_USERNAME:
-    file: ./secrets/ME_CONFIG_MONGODB_AUTH_USERNAME.txt
-  ME_CONFIG_MONGODB_AUTH_PASSWORD:
-    file: ./secrets/ME_CONFIG_MONGODB_AUTH_PASSWORD.txt
-
-services:
-  app:
-    healthcheck:
-      test: ["CMD", "wget", "-SqO-", "localhost:3000"]
-      interval: 1m30s
-      timeout: 30s
-      retries: 5
-      start_period: 30s
-    container_name: container-app
-    image: d4nitrix13/my-app-private:latest
-    ports:
-      - 3000:3000
-    secrets:
-      - MONGO_DB_USERNAME
-      - MONGO_DB_PWD
-    environment:
-      MONGO_DB_USERNAME: ${MONGO_DB_USERNAME}
-      MONGO_DB_PWD: ${MONGO_DB_PWD}
-  mongo-demo:
-    container_name: container-mongo-demo
-    image: mongo:latest
-    ports:
-      - 27017:27017
-    secrets:
-      - MONGO_INITDB_ROOT_USERNAME
-      - MONGO_INITDB_ROOT_PASSWORD
-    environment:
-      MONGO_INITDB_ROOT_USERNAME_FILE: /run/secrets/MONGO_INITDB_ROOT_USERNAME
-      MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/MONGO_INITDB_ROOT_PASSWORD
-  mongo-express:
-    container_name: container-mongo-express
-    depends_on:
-      - mongo-demo
-    image: mongo-express
-    ports:
-      - 8081:8081
-    entrypoint:
-      - /bin/sh
-      - -c
-      - |
-        until nc -zv mongo-demo 27017; do
-          echo "Waiting For Mongo";
-          sleep 1;
-        done;
-        exec /sbin/tini -- /docker-entrypoint.sh
-    secrets:
-      - ME_CONFIG_MONGODB_ADMINUSERNAME
-      - ME_CONFIG_MONGODB_ADMINPASSWORD
-      - ME_CONFIG_MONGODB_SERVER
-      - ME_CONFIG_MONGODB_URL
-      - ME_CONFIG_MONGODB_AUTH_USERNAME
-      - ME_CONFIG_MONGODB_AUTH_PASSWORD
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: ${ME_CONFIG_MONGODB_ADMINUSERNAME}
-      ME_CONFIG_MONGODB_ADMINPASSWORD: ${ME_CONFIG_MONGODB_ADMINPASSWORD}
-      ME_CONFIG_MONGODB_SERVER: ${ME_CONFIG_MONGODB_SERVER}
-      ME_CONFIG_MONGODB_URL: ${ME_CONFIG_MONGODB_URL}
-      ME_CONFIG_MONGODB_AUTH_USERNAME: ${ME_CONFIG_MONGODB_AUTH_USERNAME}
-      ME_CONFIG_MONGODB_AUTH_PASSWORD: ${ME_CONFIG_MONGODB_AUTH_PASSWORD}
-      ME_CONFIG_MONGODB_ENABLE_ADMIN: "true"
-      ME_CONFIG_OPTIONS_EDITORTHEME: material-darker
-      ME_CONFIG_REQUEST_SIZE: 100kb
-      ME_CONFIG_SITE_BASEURL: /
-      ME_CONFIG_SITE_COOKIESECRET: cookiesecret
-      ME_CONFIG_SITE_SESSIONSECRET: sessionsecret
-      ME_CONFIG_SITE_SSL_ENABLED: false
-      ME_CONFIG_MONGODB_PORT: "27017"
+MONGO_DB_USERNAME=admin
+MONGO_DB_PWD=supersecret
 ```
+
+#### **d. Modificar el archivo `mongo-express.env`**
+
+**Este archivo configura las variables necesarias para conectar **mongo-express** con MongoDB:**
+
+```env
+# Autor: Daniel Benjamin Perez Morales
+# GitHub: https://github.com/DanielBenjaminPerezMoralesDev13
+# Gitlab: https://gitlab.com/DanielBenjaminPerezMoralesDev13
+# Correo electrónico: danielperezdev@proton.me
+
+ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+ME_CONFIG_MONGODB_ADMINPASSWORD=supersecret
+ME_CONFIG_MONGODB_SERVER=mongo-demo
+ME_CONFIG_MONGODB_URL=mongodb://admin:supersecret@mongo-demo:27017/
+ME_CONFIG_MONGODB_AUTH_USERNAME=admin
+ME_CONFIG_MONGODB_AUTH_PASSWORD=pass
+```
+
+### **Modificar el archivo de configuración de Docker Compose**
+
+**El archivo `mongo-services-private.yaml` configura tres servicios en Docker Compose:**
+
+- **`app`:** *La aplicación personalizada (`d4nitrix13/my-app-private:latest`) que depende de MongoDB.*
+- **`mongo-demo`:** *El servicio de MongoDB (`mongo:latest`), configurado con credenciales de acceso a través de secretos de Docker.*
+- **`mongo-express`:** *Un contenedor con **mongo-express** para gestionar MongoDB a través de una interfaz web.*
+
+### **Detalles de los servicios:**
+
+- **`app`**:
+  - *Usa la imagen privada `d4nitrix13/my-app-private:latest`.*
+  - *Mapea el puerto 3000 en el contenedor al puerto 3000 de la máquina host.*
+  - *Carga las variables de entorno desde `app.env`.*
+
+- **`mongo-demo`**:
+  - *Usa la imagen oficial `mongo:latest`.*
+  - *Configura las credenciales para el acceso a la base de datos usando secretos (archivos que contienen las contraseñas, en lugar de escribirlas directamente en el archivo `docker-compose.yaml`).*
+  - *Mapea el puerto 27017 del contenedor a `27017` en la máquina host.*
+
+- **`mongo-express`**:
+  - *Utiliza la imagen de `mongo-express` para ofrecer una interfaz web para administrar MongoDB.*
+  - *Establece variables de entorno para configuraciones internas, como el nombre de usuario y la contraseña para MongoDB.*
+  - *Usa un script en el `entrypoint` para esperar a que MongoDB esté disponible antes de iniciar el contenedor.*
+
+### 5. **Ejecutar Docker Compose**
+
+**El siguiente comando levanta los contenedores definidos en `mongo-services-private.yaml`:**
+
+```bash
+docker compose --project-name project-private --file mongo-services-private.yaml up --detach --timestamps --remove-orphans --build
+```
+
+**Desglosado:**
+
+- **`--project-name project-private`:** *Establece el nombre del proyecto (que es un nombre que Docker usa para agrupar los contenedores). En este caso, se llama `project-private`.*
+- **`--file mongo-services-private.yaml`:** *Le dice a Docker Compose que use el archivo `mongo-services-private.yaml` para definir los servicios.*
+- **`up`:** *Levanta los servicios definidos en el archivo Docker Compose.*
+- **`--detach`:** *Ejecuta los contenedores en segundo plano (modo "detached").*
+- **`--timestamps`:** *Muestra las marcas de tiempo en los logs.*
+- **`--remove-orphans`:** *Elimina contenedores huérfanos (contenedores de proyectos antiguos que ya no están definidos en el archivo).*
+- **`--build`:** *Fuerza a Docker Compose a reconstruir las imágenes si es necesario.*
+
+### **Resumen**
+
+*Este flujo configura, construye y levanta una serie de contenedores que incluyen una aplicación personalizada, un servicio de MongoDB y una interfaz de administración **mongo-express**. Los contenedores están configurados para usar credenciales almacenadas de manera segura y gestionan la conexión entre los servicios mediante variables de entorno y secretos. Además, se usan puertos mapeados para acceder a la aplicación y a la base de datos desde el host.*
