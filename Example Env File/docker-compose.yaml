@@ -7,13 +7,18 @@ version: '3.8'
 
 services:
   app:
-    image: my-app
+    container_name: container-app
+    image: dpage/pgadmin4
     env_file:
-      - .env   # Name File .env
+      - .env  # Carga Las Variables De Entorno Desde El Archivo .env
     ports:
-      - "8080:8080"
+      - "8080:80/tcp"  # Expone El Puerto 8080 En La Máquina Host, Mapeado Al Puerto 80 Del Contenedor
+    environment:
+      - PGADMIN_LISTEN_PORT=80  # Puerto En El Que Pgadmin Escuchará
+      - PGADMIN_CONFIG_SERVER_MODE=False  # Desactiva El Modo Servidor Para Usar Pgadmin Localmente
 
   db:
+    container_name: container-db
     image: postgres:latest
     env_file:
       - .env   # Carga Las Mismas Variables Para El Contenedor De La Base De Datos
