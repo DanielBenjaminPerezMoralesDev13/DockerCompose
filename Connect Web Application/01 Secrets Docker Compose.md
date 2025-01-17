@@ -1,5 +1,6 @@
 <!-- Autor: Daniel Benjamin Perez Morales -->
 <!-- GitHub: https://github.com/DanielBenjaminPerezMoralesDev13 -->
+<!-- Gitlab: https://gitlab.com/DanielBenjaminPerezMoralesDev13 -->
 <!-- Correo electrónico: danielperezdev@proton.me -->
 
 # **Docker Compose Secrets: Ejemplos y Casos de Uso**
@@ -75,6 +76,7 @@ echo "pass" > ./secrets/ME_CONFIG_MONGODB_AUTH_PASSWORD.txt
 ```yaml
 # Autor: Daniel Benjamin Perez Morales
 # GitHub: https://github.com/DanielBenjaminPerezMoralesDev13
+# Gitlab: https://gitlab.com/DanielBenjaminPerezMoralesDev13
 # Correo electrónico: danielperezdev@proton.me
 
 secrets:

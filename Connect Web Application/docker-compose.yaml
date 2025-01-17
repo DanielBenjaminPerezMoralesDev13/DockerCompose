@@ -1,12 +1,9 @@
 # Autor: Daniel Benjamin Perez Morales
 # GitHub: https://github.com/DanielBenjaminPerezMoralesDev13
+# Gitlab: https://gitlab.com/DanielBenjaminPerezMoralesDev13
 # Correo electrónico: danielperezdev@proton.me
 
 secrets:
-  MONGO_DB_USERNAME:
-    file: ./secrets/MONGO_DB_USERNAME.txt
-  MONGO_DB_PWD:
-    file: ./secrets/MONGO_DB_PWD.txt
   MONGO_INITDB_ROOT_USERNAME:
     file: ./secrets/MONGO_INITDB_ROOT_USERNAME.txt
   MONGO_INITDB_ROOT_PASSWORD:
@@ -24,21 +21,24 @@ secrets:
   ME_CONFIG_MONGODB_AUTH_PASSWORD:
     file: ./secrets/ME_CONFIG_MONGODB_AUTH_PASSWORD.txt
 
+# Variables De Entorno
+# export MONGO_DB_USERNAME=admin;
+# export MONGO_DB_PWD=supersecret;
+# export MONGO_INITDB_ROOT_USERNAME=admin;
+# export MONGO_INITDB_ROOT_PASSWORD=supersecret;
+# export ME_CONFIG_MONGODB_ADMINUSERNAME=admin;
+# export ME_CONFIG_MONGODB_ADMINPASSWORD=supersecret;
+# export ME_CONFIG_MONGODB_SERVER=mongo-demo;
+# export ME_CONFIG_MONGODB_URL=mongodb://admin:supersecret@mongo-demo:27017/;
+# export ME_CONFIG_MONGODB_AUTH_USERNAME=admin;
+# export ME_CONFIG_MONGODB_AUTH_PASSWORD=pass;
+
 services:
   app:
-    healthcheck:
-      test: ["executable", "arg"]
-      interval: 1m30s
-      timeout: 30s
-      retries: 5
-      start_period: 30s
     container_name: container-app
     build: .
     ports:
       - 3000:3000
-    secrets:
-      - MONGO_DB_USERNAME
-      - MONGO_DB_PWD
     environment:
       MONGO_DB_USERNAME: ${MONGO_DB_USERNAME}
       MONGO_DB_PWD: ${MONGO_DB_PWD}

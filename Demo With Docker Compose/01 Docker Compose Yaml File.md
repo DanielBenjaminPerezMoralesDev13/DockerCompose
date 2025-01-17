@@ -1,5 +1,6 @@
 <!-- Autor: Daniel Benjamin Perez Morales -->
 <!-- GitHub: https://github.com/DanielBenjaminPerezMoralesDev13 -->
+<!-- Gitlab: https://gitlab.com/DanielBenjaminPerezMoralesDev13 -->
 <!-- Correo electrónico: danielperezdev@proton.me -->
 
 # ***Docker Compose Yaml File***
@@ -135,6 +136,7 @@ docker compose -f ./Directory/mongo-services.yaml down
 ```yaml
 # Autor: Daniel Benjamin Perez Morales
 # GitHub: https://github.com/DanielBenjaminPerezMoralesDev13
+# Gitlab: https://gitlab.com/DanielBenjaminPerezMoralesDev13
 # Correo electrónico: danielperezdev@proton.me
 
 version: '3.8'

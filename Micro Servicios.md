@@ -1,5 +1,6 @@
 <!-- Autor: Daniel Benjamin Perez Morales -->
 <!-- GitHub: https://github.com/DanielBenjaminPerezMoralesDev13 -->
+<!-- Gitlab: https://gitlab.com/DanielBenjaminPerezMoralesDev13 -->
 <!-- Correo electrónico: danielperezdev@proton.me -->
 
 # *Los **microservicios** son una arquitectura de desarrollo de software que descompone una aplicación en múltiples servicios pequeños, autónomos e independientes. Cada servicio está diseñado para realizar una tarea específica y opera como una unidad funcional completa. Estos servicios se comunican entre sí generalmente a través de APIs o mensajería, como HTTP o sistemas de cola.*

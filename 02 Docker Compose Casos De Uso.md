@@ -1,5 +1,6 @@
 <!-- Autor: Daniel Benjamin Perez Morales -->
 <!-- GitHub: https://github.com/DanielBenjaminPerezMoralesDev13 -->
+<!-- Gitlab: https://gitlab.com/DanielBenjaminPerezMoralesDev13 -->
 <!-- Correo electrónico: danielperezdev@proton.me -->
 
 # *Docker Compose es una herramienta potente que se utiliza en una variedad de casos de uso para simplificar el manejo de aplicaciones que requieren múltiples contenedores.*

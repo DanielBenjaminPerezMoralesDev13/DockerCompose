@@ -1,5 +1,6 @@
 # Autor: Daniel Benjamin Perez Morales
 # GitHub: https://github.com/DanielBenjaminPerezMoralesDev13
+# Gitlab: https://gitlab.com/DanielBenjaminPerezMoralesDev13
 # Correo electrónico: danielperezdev@proton.me
 
 FROM node:20-alpine

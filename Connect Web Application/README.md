@@ -1,5 +1,6 @@
 <!-- Autor: Daniel Benjamin Perez Morales -->
 <!-- GitHub: https://github.com/DanielBenjaminPerezMoralesDev13 -->
+<!-- Gitlab: https://gitlab.com/DanielBenjaminPerezMoralesDev13 -->
 <!-- Correo electrónico: danielperezdev@proton.me -->
 
 # **Connect App**
@@ -41,6 +42,7 @@ docker network rm version4mongoservices_default; # Elimina La Red Creada Automá
 ```yaml
 # Autor: Daniel Benjamin Perez Morales
 # GitHub: https://github.com/DanielBenjaminPerezMoralesDev13
+# Gitlab: https://gitlab.com/DanielBenjaminPerezMoralesDev13
 # Correo electrónico: danielperezdev@proton.me
 
 services:

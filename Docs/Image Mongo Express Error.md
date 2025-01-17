@@ -1,5 +1,6 @@
 <!-- Autor: Daniel Benjamin Perez Morales -->
 <!-- GitHub: https://github.com/DanielBenjaminPerezMoralesDev13 -->
+<!-- Gitlab: https://gitlab.com/DanielBenjaminPerezMoralesDev13 -->
 <!-- Correo electrónico: danielperezdev@proton.me -->
 
 # *El problema principal mencionado en esta publicación está relacionado con la conexión entre los contenedores **MongoDB** y **Mongo-Express** al usar Docker Compose. Este problema puede deberse a cambios en la configuración del entorno, versiones de imágenes incompatibles o la necesidad de coordinar el inicio de los servicios.*
