@@ -1,0 +1,21 @@
+# Autor: Daniel Benjamin Perez Morales
+# GitHub: https://github.com/DanielBenjaminPerezMoralesDev13
+# Gitlab: https://gitlab.com/DanielBenjaminPerezMoralesDev13
+# Correo electrónico: danielperezdev@proton.me
+
+version: '3.8'
+
+services:
+  app:
+    image: my-app
+    env_file:
+      - .env   # Name File .env
+    ports:
+      - "8080:8080"
+
+  db:
+    image: postgres:latest
+    env_file:
+      - .env   # Carga Las Mismas Variables Para El Contenedor De La Base De Datos
+    environment:
+      - DB_NAME=mydb
