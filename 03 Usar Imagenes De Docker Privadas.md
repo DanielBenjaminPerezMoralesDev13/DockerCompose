@@ -49,7 +49,7 @@ WARNING: experimental flag squash is removed with BuildKit. You should squash in
    - *Asigna el nombre `d4nitrix13/my-app-private` a la imagen con la etiqueta `latest`. Esta etiqueta es un marcador de versión y es útil para referirse a la imagen construida.*
 
 3. **`--file Dockerfile`:**
-   - *Especifica el archivo `Dockerfile` que se debe usar para construir la imagen. Si no se especifica, Docker busca por defecto un archivo llamado `Dockerfile`.*
+   - *Especifica el fichero `Dockerfile` que se debe usar para construir la imagen. Si no se especifica, Docker busca por defecto un fichero llamado `Dockerfile`.*
 
 4. **`--no-cache`:**
    - *Evita usar las capas de caché almacenadas de construcciones anteriores. Esto garantiza que todas las etapas del Dockerfile se vuelvan a construir desde cero. Esto puede hacer que la construcción sea más lenta, pero asegura que siempre se utilicen los cambios más recientes.*
@@ -84,13 +84,13 @@ WARNING: experimental flag squash is removed with BuildKit. You should squash in
     - *Especifica la plataforma para la que se construye la imagen. En este caso, se construye para una arquitectura `amd64` (una arquitectura de 64 bits común en la mayoría de las máquinas).*
 
 12. **`--compress`:**
-    - *Comprime el contexto de la construcción (el conjunto de archivos que se envían al daemon de Docker), lo cual puede ser útil cuando se maneja una gran cantidad de archivos, ya que reduce el uso de ancho de banda.*
+    - *Comprime el contexto de la construcción (el conjunto de ficheros que se envían al daemon de Docker), lo cual puede ser útil cuando se maneja una gran cantidad de ficheros, ya que reduce el uso de ancho de banda.*
 
 13. **`.` (punto final):**
-    - *Indica el directorio actual como el contexto de construcción, es decir, donde se encuentran los archivos necesarios (como el `Dockerfile` y otros archivos requeridos).*
+    - *Indica el directorio actual como el contexto de construcción, es decir, donde se encuentran los ficheros necesarios (como el `Dockerfile` y otros ficheros requeridos).*
 
 - **Resumen:**
-- *Este comando crea una imagen Docker utilizando un archivo `Dockerfile` específico, sin usar la caché de Docker, configurando límites de recursos (memoria), y utilizando la red predeterminada. También está etiquetando la imagen con información sobre el mantenedor y buscando las últimas versiones de las imágenes base. Además, la opción `--squash` genera una advertencia debido a que está descontinuada con el motor BuildKit de Docker, sugiriendo que debes usar **Dockerfiles multi-etapas** para realizar la optimización de la imagen.*
+- *Este comando crea una imagen Docker utilizando un fichero `Dockerfile` específico, sin usar la caché de Docker, configurando límites de recursos (memoria), y utilizando la red predeterminada. También está etiquetando la imagen con información sobre el mantenedor y buscando las últimas versiones de las imágenes base. Además, la opción `--squash` genera una advertencia debido a que está descontinuada con el motor BuildKit de Docker, sugiriendo que debes usar **Dockerfiles multi-etapas** para realizar la optimización de la imagen.*
 
 si tenemos las credenciales configuradas
 
