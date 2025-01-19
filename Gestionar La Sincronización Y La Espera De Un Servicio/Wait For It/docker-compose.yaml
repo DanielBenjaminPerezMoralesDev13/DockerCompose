@@ -4,10 +4,19 @@
 # Correo electrónico: danielperezdev@proton.me
 
 services:
+  base_image:
+    build:
+      context: ./
+      dockerfile: Dockerfile.onbuild
+    image: d4nitrix13/base:latest
+
   app:
     build:
       context: ./
       dockerfile: Dockerfile
+    image: d4nitrix13/my-app:1.0.0
+    depends_on:
+      - base_image
     labels:
       - maintainer=D4nitrix13
     container_name: app-container
@@ -19,8 +28,8 @@ services:
       timeout: 30s
       retries: 5
       start_period: 30s
-    stdin_open: true  # Habilita el modo interactivo
-    tty: true         # Asigna un terminal pseudo-TTY
+    stdin_open: true
+    tty: true
     command: bash server.sh
 
 volumes:
