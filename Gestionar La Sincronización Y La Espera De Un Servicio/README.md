@@ -1,4 +1,12 @@
+<!-- Autor: Daniel Benjamin Perez Morales -->
+<!-- GitHub: https://github.com/DanielBenjaminPerezMoralesDev13 -->
+<!-- Gitlab: https://gitlab.com/DanielBenjaminPerezMoralesDev13 -->
+<!-- Correo electrónico: danielperezdev@proton.me -->
+
 # ***`dockerize`** y **`wait-for-it.sh`** son herramientas útiles para gestionar la sincronización y la espera de que un servicio esté disponible antes de que otro servicio intente conectarse a él, especialmente en el contexto de contenedores Docker*
+
+- *[Foro Unix](https://unix.stackexchange.com/questions/32182/simple-command-line-http-server "https://unix.stackexchange.com/questions/32182/simple-command-line-http-server")*
+- *[Foro Stack Overflow](https://stackoverflow.com/questions/16640054/minimal-web-server-using-netcat "https://stackoverflow.com/questions/16640054/minimal-web-server-using-netcat")*
 
 ---
 
@@ -41,6 +49,8 @@ services:
 
 > [!NOTE]
 > ***`wait-for-it.sh`** es un script de shell que espera hasta que un servicio o puerto específico esté disponible antes de ejecutar otro comando. Es muy similar a **`dockerize`**, pero con un enfoque más simple y específico para situaciones en las que necesitas esperar por un servicio en particular.*
+
+- **[Debian Package](https://tracker.debian.org/pkg/wait-for-it "https://tracker.debian.org/pkg/wait-for-it")**
 
 #### **Características de `wait-for-it.sh`**
 
