@@ -11,5 +11,9 @@
 *[Add Or Copy](https://docs.docker.com/build/building/best-practices/#add-or-copy "https://docs.docker.com/build/building/best-practices/#add-or-copy")*
 *[How to download a file from URL using Dockerfile](https://stackoverflow.com/questions/67401830/how-to-download-a-file-from-url-using-dockerfile "https://stackoverflow.com/questions/67401830/how-to-download-a-file-from-url-using-dockerfile")*
 *[ADD or COPY a folder in Docker](https://stackoverflow.com/questions/28599571/add-or-copy-a-folder-in-docker "https://stackoverflow.com/questions/28599571/add-or-copy-a-folder-in-docker")*
-<https://docs.docker.com/reference/dockerfile/#adding-files-from-a-url>
-<https://docs.docker.com/reference/dockerfile/#environment-replacement>
+*[Adding Files From A Url](https://docs.docker.com/reference/dockerfile/#adding-files-from-a-url "https://docs.docker.com/reference/dockerfile/#adding-files-from-a-url")*
+*[Environment Replacement](https://docs.docker.com/reference/dockerfile/#environment-replacement "https://docs.docker.com/reference/dockerfile/#environment-replacement")*
+*[How to replace an entire line in a text file by line number](https://stackoverflow.com/questions/11145270/how-to-replace-an-entire-line-in-a-text-file-by-line-number "https://stackoverflow.com/questions/11145270/how-to-replace-an-entire-line-in-a-text-file-by-line-number")*
+*[Adding Files From A Git Repository](https://docs.docker.com/reference/dockerfile/#adding-files-from-a-git-repository "https://docs.docker.com/reference/dockerfile/#adding-files-from-a-git-repository")*
+*[Adding Files From A Url](https://docs.docker.com/reference/dockerfile/#adding-files-from-a-url "https://docs.docker.com/reference/dockerfile/#adding-files-from-a-url")*
+*[Why Should I Use Docker Onbuild](https://stackoverflow.com/questions/60319669/why-should-i-use-docker-onbuild "https://stackoverflow.com/questions/60319669/why-should-i-use-docker-onbuild")*

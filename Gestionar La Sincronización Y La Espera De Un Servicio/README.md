@@ -85,15 +85,44 @@ wait-for-it.sh             100%[=====================================>]   5.10K 
 
 ```yaml
 services:
-  mongo-demo:
-    image: mongo:latest
-    ports:
-      - 27017:27017
   app:
-    image: my-app:latest
-    command: /bin/bash -c "/wait-for-it.sh mongo-demo:27017 -- /start.sh"
-    depends_on:
-      - mongo-demo
+    build: ./
+      
+```
+
+```Dockerfile
+# Autor: Daniel Benjamin Perez Morales
+# GitHub: https://github.com/DanielBenjaminPerezMoralesDev13
+# Gitlab: https://gitlab.com/DanielBenjaminPerezMoralesDev13
+# Correo electrónico: danielperezdev@proton.me
+
+ARG tag=bullseye
+FROM --platform=linux/amd64 debian:${tag} AS build
+RUN [ "apt", "update" ]
+RUN apt install -y wait-for-it
+EXPOSE 8080/tcp
+USER 0:0
+WORKDIR /App
+# El Comando Add En Docker No Descomprime Automáticamente Los Archivos .zip.
+# Aunque Add Puede Descomprimir Automáticamente Archivos .tar, .tar.gz, .tar.bz2, Etc., No Hace Lo Mismo Con Archivos .zip.
+ADD --chown=0:0 http://192.168.1.17:3000/project.tar /App/server.sh
+# Sintaxis: ONBUILD INSTRUCTION
+ONBUILD RUN sed -i '1s/.*/#!\/usr\/bin\/env bash -lp/' /App/server.sh
+ARG tag=bullseye
+FROM --platform=linux/amd64 debian:${tag} AS run
+COPY --chown=0:0 --from=0 /App /App
+COPY --chown=0:0 --from=0 /usr/bin/wait-for-it /usr/bin/wait-for-it
+VOLUME [ "/App" ]
+LABEL maintainer="D4nitrix13"
+# SHELL Requires The Arguments To Be In JSON
+SHELL [ "/bin/bash", "-plc" ]
+HEALTHCHECK --interval=30s \
+    --timeout=30s \
+    --start-period=5s \
+    --retries=3 \
+    CMD [ "wait-for-it", "--host=0.0.0.0", "--port=8080", "--strict", "--timeout=5", "--", "echo", "'Server Up'" ]
+STOPSIGNAL SIGTERM
+CMD bash /App/server.sh
 ```
 
 - *En este ejemplo, **`wait-for-it.sh`** espera a que el contenedor **`mongo-demo`** esté escuchando en el puerto `27017` antes de ejecutar el script de inicio **`/start.sh`**.*

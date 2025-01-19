@@ -4,19 +4,28 @@
 # Correo electrónico: danielperezdev@proton.me
 
 ARG tag=bullseye
-FROM --platform=linux/amd64 debian:${tag}
+FROM --platform=linux/amd64 debian:${tag} AS build
 RUN [ "apt", "update" ]
 RUN apt install -y wait-for-it
 EXPOSE 8080/tcp
 USER 0:0
 WORKDIR /App
-VOLUME [ "/App" ]
 # El Comando Add En Docker No Descomprime Automáticamente Los Archivos .zip.
 # Aunque Add Puede Descomprimir Automáticamente Archivos .tar, .tar.gz, .tar.bz2, Etc., No Hace Lo Mismo Con Archivos .zip.
-ADD http://192.168.1.17:3000/project.tar /App/server.sh
-LABEL manteiner="D4nitrix13"
+ADD --chown=0:0 http://192.168.1.17:3000/project.tar /App/server.sh
+# Sintaxis: ONBUILD INSTRUCTION
+FROM build AS run
+ONBUILD RUN sed -i '1s/.*/#!\/usr\/bin\/env bash -lp/' /App/server.sh
+COPY --chown=0:0 --from=0 /App /App
+COPY --chown=0:0 --from=0 /usr/bin/wait-for-it /usr/bin/wait-for-it
+VOLUME [ "/App" ]
+LABEL maintainer="D4nitrix13"
 # SHELL Requires The Arguments To Be In JSON
 SHELL [ "/bin/bash", "-plc" ]
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ "wait-for-it", "--host=0.0.0.0", "--port=8080", "--strict", "--timeout=5", "--", "echo", "'Server Up'" ]
+HEALTHCHECK --interval=30s \
+    --timeout=30s \
+    --start-period=5s \
+    --retries=3 \
+    CMD [ "wait-for-it", "--host=0.0.0.0", "--port=8080", "--strict", "--timeout=5", "--", "echo", "'Server Up'" ]
 STOPSIGNAL SIGTERM
-CMD "bash"
+CMD bash /App/server.sh

@@ -34,3 +34,5 @@ else
 EOF
 exit 1;
 fi
+
+/bin/bash -lp;
