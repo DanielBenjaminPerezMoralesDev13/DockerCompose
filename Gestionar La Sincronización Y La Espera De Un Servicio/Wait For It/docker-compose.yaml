@@ -7,7 +7,7 @@ services:
   app:
     build:
       context: ./
-      dockerfile: Dockerfile.healthcheck
+      dockerfile: Dockerfile
     labels:
       - maintainer=D4nitrix13
     container_name: app-container
@@ -19,6 +19,9 @@ services:
       timeout: 30s
       retries: 5
       start_period: 30s
+    stdin_open: true  # Habilita el modo interactivo
+    tty: true         # Asigna un terminal pseudo-TTY
+    command: bash server.sh
 
 volumes:
   myvolume:
