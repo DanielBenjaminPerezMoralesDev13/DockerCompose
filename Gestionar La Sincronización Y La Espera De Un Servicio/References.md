@@ -18,3 +18,5 @@
 *[Adding Files From A Url](https://docs.docker.com/reference/dockerfile/#adding-files-from-a-url "https://docs.docker.com/reference/dockerfile/#adding-files-from-a-url")*
 *[Why Should I Use Docker Onbuild](https://stackoverflow.com/questions/60319669/why-should-i-use-docker-onbuild "https://stackoverflow.com/questions/60319669/why-should-i-use-docker-onbuild")*
 *[Docker Onbuild Instruction](https://blog.techiescamp.com/docker-onbuild-instruction/ "https://blog.techiescamp.com/docker-onbuild-instruction/")*
+*[Healthcheck Cmd Vs Cmd Shell](https://devops.stackexchange.com/questions/11501/healthcheck-cmd-vs-cmd-shell "https://devops.stackexchange.com/questions/11501/healthcheck-cmd-vs-cmd-shell")*
+*[How Do I Define The Name Of Image Built With Docker Compose](https://stackoverflow.com/questions/32230577/how-do-i-define-the-name-of-image-built-with-docker-compose "https://stackoverflow.com/questions/32230577/how-do-i-define-the-name-of-image-built-with-docker-compose")*

@@ -188,7 +188,7 @@ services:
   - **`<num>`:** *Número incremental asignado a los contenedores del mismo servicio.*
 
 - **Ejemplo:**
-  - *Carpeta: `project1/`*
+  - *Directorio: `project1/`*
   - *Servicio definido en `docker-compose.yml`:*
 
     ```yaml
@@ -217,7 +217,7 @@ services:
   - *Esta red es privada para los contenedores del mismo fichero y permite la comunicación interna entre ellos.*
 
 - **Ejemplo:**
-  - *Carpeta: `project1/`*
+  - *Directorio: `project1/`*
   - *Red creada automáticamente:*
 
     ```bash

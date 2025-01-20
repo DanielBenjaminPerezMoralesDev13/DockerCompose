@@ -107,7 +107,7 @@ Login Succeeded
 ```
 
 - **`docker login`:** *Te autentica en Docker Hub.*
-- **`WARNING! Your password will be stored unencrypted...`:** *Esta advertencia te informa que la contraseña está almacenada sin cifrar en un archivo local (`config.json`). Docker recomienda usar un "credential helper" para proteger las credenciales.*
+- **`WARNING! Your password will be stored unencrypted...`:** *Esta advertencia te informa que la contraseña está almacenada sin cifrar en un fichero local (`config.json`). Docker recomienda usar un "credential helper" para proteger las credenciales.*
 - **`Login Succeeded`:** *Esto indica que la autenticación fue exitosa.*
 
 ### **2. Subir una imagen a Docker Hub (docker push)**
@@ -141,27 +141,27 @@ latest: digest: sha256:1ade139fc90af76df2711ec672bb951ae275f86a061cc8b61dde48a6f
 latest: digest: sha256:1ade139fc90af76df2711ec672bb951ae275f86a061cc8b61dde48a6f92bce6f size: 1991
 ```
 
-### **3. Crear y modificar archivos de configuración**
+### **3. Crear y modificar ficheros de configuración**
 
-#### **a. Copiar el archivo `docker-compose.yaml`**
+#### **a. Copiar el fichero `docker-compose.yaml`**
 
 ```bash
 cp docker-compose.yaml mongo-services-private.yaml
 ```
 
-- **Este comando copia el archivo `docker-compose.yaml` a un nuevo archivo llamado `mongo-services-private.yaml`, para hacer modificaciones específicas sin alterar el archivo original.**
+- **Este comando copia el fichero `docker-compose.yaml` a un nuevo fichero llamado `mongo-services-private.yaml`, para hacer modificaciones específicas sin alterar el fichero original.**
 
-#### **b. Crear archivos de variables de entorno**
+#### **b. Crear ficheros de variables de entorno**
 
 ```bash
 touch app.env mongo-express.env
 ```
 
-- **Este comando crea dos archivos de variables de entorno: `app.env` y `mongo-express.env`, donde puedes configurar las variables necesarias para la aplicación y **mongo-express**.**
+- **Este comando crea dos ficheros de variables de entorno: `app.env` y `mongo-express.env`, donde puedes configurar las variables necesarias para la aplicación y **mongo-express**.**
 
-#### **c. Modificar el archivo `app.env`**
+#### **c. Modificar el fichero `app.env`**
 
-**El archivo `app.env` contiene las credenciales para MongoDB:**
+**El fichero `app.env` contiene las credenciales para MongoDB:**
 
 ```env
 # Autor: Daniel Benjamin Perez Morales
@@ -173,9 +173,9 @@ MONGO_DB_USERNAME=admin
 MONGO_DB_PWD=supersecret
 ```
 
-#### **d. Modificar el archivo `mongo-express.env`**
+#### **d. Modificar el fichero `mongo-express.env`**
 
-**Este archivo configura las variables necesarias para conectar **mongo-express** con MongoDB:**
+**Este fichero configura las variables necesarias para conectar **mongo-express** con MongoDB:**
 
 ```env
 # Autor: Daniel Benjamin Perez Morales
@@ -191,9 +191,9 @@ ME_CONFIG_MONGODB_AUTH_USERNAME=admin
 ME_CONFIG_MONGODB_AUTH_PASSWORD=pass
 ```
 
-### **Modificar el archivo de configuración de Docker Compose**
+### **Modificar el fichero de configuración de Docker Compose**
 
-**El archivo `mongo-services-private.yaml` configura tres servicios en Docker Compose:**
+**El fichero `mongo-services-private.yaml` configura tres servicios en Docker Compose:**
 
 - **`app`:** *La aplicación personalizada (`d4nitrix13/my-app-private:latest`) que depende de MongoDB.*
 - **`mongo-demo`:** *El servicio de MongoDB (`mongo:latest`), configurado con credenciales de acceso a través de secretos de Docker.*
@@ -208,7 +208,7 @@ ME_CONFIG_MONGODB_AUTH_PASSWORD=pass
 
 - **`mongo-demo`**:
   - *Usa la imagen oficial `mongo:latest`.*
-  - *Configura las credenciales para el acceso a la base de datos usando secretos (archivos que contienen las contraseñas, en lugar de escribirlas directamente en el archivo `docker-compose.yaml`).*
+  - *Configura las credenciales para el acceso a la base de datos usando secretos (ficheros que contienen las contraseñas, en lugar de escribirlas directamente en el fichero `docker-compose.yaml`).*
   - *Mapea el puerto 27017 del contenedor a `27017` en la máquina host.*
 
 - **`mongo-express`**:
@@ -227,11 +227,11 @@ docker compose --project-name project-private --file mongo-services-private.yaml
 **Desglosado:**
 
 - **`--project-name project-private`:** *Establece el nombre del proyecto (que es un nombre que Docker usa para agrupar los contenedores). En este caso, se llama `project-private`.*
-- **`--file mongo-services-private.yaml`:** *Le dice a Docker Compose que use el archivo `mongo-services-private.yaml` para definir los servicios.*
-- **`up`:** *Levanta los servicios definidos en el archivo Docker Compose.*
+- **`--file mongo-services-private.yaml`:** *Le dice a Docker Compose que use el fichero `mongo-services-private.yaml` para definir los servicios.*
+- **`up`:** *Levanta los servicios definidos en el fichero Docker Compose.*
 - **`--detach`:** *Ejecuta los contenedores en segundo plano (modo "detached").*
 - **`--timestamps`:** *Muestra las marcas de tiempo en los logs.*
-- **`--remove-orphans`:** *Elimina contenedores huérfanos (contenedores de proyectos antiguos que ya no están definidos en el archivo).*
+- **`--remove-orphans`:** *Elimina contenedores huérfanos (contenedores de proyectos antiguos que ya no están definidos en el fichero).*
 - **`--build`:** *Fuerza a Docker Compose a reconstruir las imágenes si es necesario.*
 
 ### **Resumen**

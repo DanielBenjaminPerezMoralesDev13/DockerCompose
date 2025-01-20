@@ -5,8 +5,8 @@
 
 # **Explicación del comando `ADD` en Docker:**
 
-- *Cuando usamos el comando `ADD src dest`, este permite copiar archivos o directorios desde un origen (`src`) a un destino (`dest`) dentro de una imagen de Docker.*
-- *El comportamiento del comando varía dependiendo de si `src` es una URL o un archivo comprimido local.*
+- *Cuando usamos el comando `ADD src dest`, este permite copiar ficheros o directorios desde un origen (`src`) a un destino (`dest`) dentro de una imagen de Docker.*
+- *El comportamiento del comando varía dependiendo de si `src` es una URL o un fichero comprimido local.*
 
 > [!WARNING]
 > *El Comando Add En Docker No Descomprime Automáticamente Los Archivos .zip.*
@@ -15,31 +15,31 @@
 
 ## ***Caso 1: `src` es una URL hacia un recurso comprimido***
 
-- *Si `src` es una URL que apunta a un recurso comprimido (por ejemplo, un archivo `.tar`), el comando `ADD` descargará y descomprimirá automáticamente el contenido del archivo en el destino especificado.*
+- *Si `src` es una URL que apunta a un recurso comprimido (por ejemplo, un fichero `.tar`), el comando `ADD` descargará y descomprimirá automáticamente el contenido del fichero en el destino especificado.*
 - **Ejemplo:**
 
-  ```dockerfile
+  ```Dockerfile
   ADD http://192.168.1.17:3000/project.tar /App/server.sh
   ```
 
   **En este caso:**
-  - *El archivo `project.tar` será descargado desde la URL `http://192.168.1.17:3000`.*
+  - *El fichero `project.tar` será descargado desde la URL `http://192.168.1.17:3000`.*
   - *Su contenido será descomprimido automáticamente.*
-  - *El contenido del archivo comprimido se ubicará en el directorio `/App`, y el nombre del destino puede especificarse como `server.sh`.*
+  - *El contenido del fichero comprimido se ubicará en el directorio `/App`, y el nombre del destino puede especificarse como `server.sh`.*
 
-### ***Caso 2: `src` es un archivo comprimido local***
+### ***Caso 2: `src` es un fichero comprimido local***
 
-- *Si `src` es un archivo comprimido local ubicado en el host, el comando `ADD` copiará el archivo al destino (`dest`) tal como está, sin descomprimirlo.*
+- *Si `src` es un fichero comprimido local ubicado en el host, el comando `ADD` copiará el fichero al destino (`dest`) tal como está, sin descomprimirlo.*
 - **Ejemplo:**
 
-  ```dockerfile
+  ```Dockerfile
   ADD ./project.tar /App/project
   ```
 
   **En este caso:**
-  - *El archivo local `project.tar` será copiado a la ruta `/App` en la imagen de Docker.*
+  - *El fichero local `project.tar` será copiado a la ruta `/App` en la imagen de Docker.*
   - *Se mantendrá comprimido con el nombre especificado, es decir, `project`.*
 
 **Nota importante:**
 
-- **Para descomprimir un archivo local en el contenedor, sería necesario usar herramientas adicionales como `tar` después de copiarlo con `ADD` o `COPY`.**
+- **Para descomprimir un fichero local en el contenedor, sería necesario usar herramientas adicionales como `tar` después de copiarlo con `ADD` o `COPY`.**

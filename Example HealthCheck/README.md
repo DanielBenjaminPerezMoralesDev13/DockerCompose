@@ -433,7 +433,7 @@ docker restart <name_container_or_id_container>
 
 **Por ejemplo, usando `tini` como entrypoint:**
 
-```dockerfile
+```Dockerfile
 # Autor: Daniel Benjamin Perez Morales
 # GitHub: https://github.com/DanielBenjaminPerezMoralesDev13
 # Gitlab: https://gitlab.com/DanielBenjaminPerezMoralesDev13

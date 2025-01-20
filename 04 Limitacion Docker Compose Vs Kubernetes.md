@@ -53,7 +53,7 @@
 ### **Gestión de configuraciones y secretos:**
 
 - **Docker Compose:**
-  - **Limitación:** *La gestión de secretos y configuraciones en Docker Compose se realiza mediante variables de entorno o archivos `.env`. Si bien es sencillo, no ofrece un sistema centralizado de gestión de secretos, y la seguridad se puede ver comprometida si no se gestiona adecuadamente.*
+  - **Limitación:** *La gestión de secretos y configuraciones en Docker Compose se realiza mediante variables de entorno o ficheros `.env`. Si bien es sencillo, no ofrece un sistema centralizado de gestión de secretos, y la seguridad se puede ver comprometida si no se gestiona adecuadamente.*
   - *Para configuraciones más complejas, se requiere una solución externa o un manejo manual.*
 
 - **Kubernetes:**

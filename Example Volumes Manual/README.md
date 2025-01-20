@@ -1261,7 +1261,7 @@ docker volume inspect -f"{{.Mountpoint}}" custom-volume | xargs sudo lsd -lA
       - *El comando `lsd` (una versión extendida de `ls`) muestra los detalles del volumen montado en el directorio especificado.*  
       - *La salida de `docker volume inspect -f "{{.Mountpoint}}" custom-volume` obtiene la ruta del volumen montado.*
     - **Resultado:**
-       *Se empieza a monitorear la carpeta donde está montado el volumen `custom-volume`.*
+       *Se empieza a monitorear la directorio donde está montado el volumen `custom-volume`.*
 
   - **Panel 2:**
 
